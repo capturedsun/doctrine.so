@@ -1,21 +1,17 @@
 // doctrine.so inside Forum: the site's routes.js, run by apps/website/server/actor.js
-// (~/frm.so/_docs/site.md). Each page is the shell for its browser (desktop/ or
-// mobile/shell.html) with its head put in at <!--seo--> and its body, from
-// _/text/<page>.html, at <!--page-->. The pages came from Pericles's matisse
-// design (a.html is the home page, download.html the download page).
+// (~/frm.so/_docs/site.md). One page: the shell for its browser (desktop/ or
+// mobile/shell.html) with its head put in at <!--seo--> and the hero of Davinci's
+// page C (the night edition), from _/text/home.html, at <!--page-->. The download
+// is the hero's Download box; /download, the old page, sends you home.
 
 var siteUrl = String(config.siteUrl || 'https://doctrine.so').replace(/\/+$/, '')
-var TITLE = 'Doctrine — A chain of command for agents'
-var PAGES = {
-    '/': { body: '_/text/home.html', style: '/_/code/home.css', title: TITLE, description: 'Doctrine, the hierarchical harness: a chain of command for agents.' },
-    '/download': { body: '_/text/download.html', style: '/_/code/download.css', title: 'Download — Doctrine', description: 'Doctrine for the Mac: the canvas, and the code behind it.' },
-}
-var NOT_FOUND = { style: '/_/code/download.css', title: 'Not found — Doctrine', description: 'No such page.' }
+var HOME = { title: 'Doctrine — The Hierarchical Harness', description: 'Build your AI army. Recruit agents with a name, rank, and team, and watch them work through the chain of command.' }
+var NOT_FOUND = { title: 'Not found — Doctrine', description: 'No such page.' }
 
 var escapeHtml = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') }
 
 function headFor(path, p) {
-    var url = siteUrl + (path === '/' ? '/' : path)
+    var url = siteUrl + path
     return [
         '<title>' + escapeHtml(p.title) + '</title>',
         '<meta name="description" content="' + escapeHtml(p.description) + '">',
@@ -23,28 +19,26 @@ function headFor(path, p) {
         '<meta property="og:title" content="' + escapeHtml(p.title) + '">',
         '<meta property="og:description" content="' + escapeHtml(p.description) + '">',
         '<meta property="og:url" content="' + escapeHtml(url) + '">',
-        '<meta property="og:image" content="' + escapeHtml(siteUrl + '/_/images/logo.jpg') + '">',
-        '<link rel="stylesheet" href="' + p.style + '">',
-    ].join('\n')
+        '<meta property="og:image" content="' + escapeHtml(siteUrl + '/_/images/badge-exact.png') + '">',
+    ].join('\n  ')
 }
 
-function notFoundBody() {
-    var body = fileRead('_/text/download.html') || ''
-    return body.replace(/<main>[\s\S]*<\/main>/, '<main>\n    <h1>Not found</h1>\n    <ol><li><div><b>No such page</b><span>It may have moved.</span></div><a href="/">Home</a></li></ol>\n  </main>')
+// the hero with its copy for a page not found, and no canvas
+function notFoundBody(home) {
+    return home.replace(/<div class="copy">[\s\S]*<\/header>/, '<div class="copy">\n      <h1>Not <span>found</span>.</h1>\n      <p class="lede">There is no such page.</p>\n      <div class="actions"><a class="btn primary" href="/">Return home</a></div>\n    </div>\n  </div>\n</header>')
 }
 
 function page(req, res) {
-    var p = PAGES[req.path], shell = fileRead((req.mobile ? 'mobile' : 'desktop') + '/shell.html')
-    if (shell == null) return res.text(500, 'the site has no shell')
-    var body = p ? fileRead(p.body) : notFoundBody()
-    if (body == null) return res.text(500, 'the site has no page for ' + req.path)
-    res.html(p ? 200 : 404, shell.replace('<!--seo-->', headFor(req.path, p || NOT_FOUND)).replace('<!--page-->', body.replace(/\n$/, '')))
+    var shell = fileRead((req.mobile ? 'mobile' : 'desktop') + '/shell.html'), home = fileRead('_/text/home.html')
+    if (shell == null || home == null) return res.text(500, 'the site has no shell or no page')
+    var found = req.path === '/'
+    res.html(found ? 200 : 404, shell.replace('<!--seo-->', headFor(found ? '/' : req.path, found ? HOME : NOT_FOUND)).replace('<!--page-->', (found ? home : notFoundBody(home)).replace(/\n$/, '')))
 }
 
-Object.keys(PAGES).forEach(function (path) { routes['GET ' + path] = page })
+routes['GET /'] = page
 routes['GET /*'] = page // (every other path: the shell with the not-found page)
+routes['GET /download'] = function (req, res) { res.send(301, { Location: '/' }, '') }
 routes['GET /robots.txt'] = function (req, res) { res.text(200, 'User-agent: *\nAllow: /\n\nSitemap: ' + siteUrl + '/sitemap.xml\n') }
 routes['GET /sitemap.xml'] = function (req, res) {
-    var urls = Object.keys(PAGES).map(function (path) { return '  <url><loc>' + siteUrl + path + '</loc></url>' }).join('\n')
-    res.send(200, { 'Content-Type': 'application/xml' }, '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '\n</urlset>\n')
+    res.send(200, { 'Content-Type': 'application/xml' }, '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>' + siteUrl + '/</loc></url>\n</urlset>\n')
 }

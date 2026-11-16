@@ -1,45 +1,17 @@
-@font-face { font-family: Laandbrau; src: url(/_/fonts/Laandbrau.ttf); }
+@font-face{font-family:Doctrine;src:url(/_/fonts/Laandbrau.ttf)}
+@font-face{font-family:Laandbrau;src:url(/_/fonts/Laandbrau.ttf)}
 /* Germanika slot: drop the file at /_/fonts/Germanika.ttf. */
-@font-face { font-family: Germanika; src: url(/_/fonts/Germanika.ttf); }
-:root { --black:#080C0B; --red:#B82A26; --cream:#E6D0A9; --tan:#E7CEA5;  --wordmark: Laandbrau; --wordmark-track: 0; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--black); color: var(--cream); font: 18px/1.5 Oswald, sans-serif; }
-h2 { font: 400 clamp(48px, 7vw, 120px)/.9 Anton, sans-serif; text-transform: uppercase; letter-spacing: .01em; }
-.kicker { font: 600 14px/1 'IBM Plex Mono', monospace; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 18px; }
-
-/* ---------- hero: the poster ---------- */
-.hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; background: var(--black); }
-.hero .stripe { position: absolute; inset: 0; background: var(--cream); clip-path: polygon(40% 0, 43% 0, 21% 100%, 18% 100%); }
-.hero .wedge { position: absolute; inset: 0; background: var(--red); clip-path: polygon(43% 0, 100% 0, 100% 100%, 21% 100%); }
-.hero .ground { position: absolute; inset: 0; background: var(--black); clip-path: polygon(0 100%, 100% 64%, 100% 100%); }
-.hero .bombers { position: absolute; right: 6%; top: 11%; width: 24%; }
-.hero .hand { position: absolute; left: 13%; bottom: -1%; height: 46%; }
-/* top bar, from davinci/c.html */
-.shell { width: min(1760px, calc(100% - 96px)); margin: auto; }
-.nav { height: 104px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(230,208,169,.65); position: relative; z-index: 5; }
-.nav a { color: var(--cream); text-decoration: none; }
-.brand { font-family: var(--wordmark), Oswald, sans-serif; font-size: 49px; line-height: 1; letter-spacing: 0; }
-.brand small { font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: .25em; display: block; margin-top: 7px; }
-.navlinks { display: flex; gap: 40px; align-items: center; text-transform: uppercase; font: 600 14px/1.5 Oswald, sans-serif; letter-spacing: .18em; }
-.navlinks .status { padding: 13px 19px; border: 1px solid var(--cream); }
-
-.hero .figure { position: absolute; right: 22%; bottom: 25.5%; height: 400px; z-index: 3; }
-
-/* ---------- the frame: a rounded cream border round the whole site ---------- */
-.hero { margin: 0; height: 100vh; min-height: 720px; border: 6px solid var(--cream); border-radius: 10px; }
-
-@media (max-width: 760px) {
-  body { font-size: 17px; }
-  .hero { height: 100svh; min-height: 680px; }
-  .hero .stripe { clip-path: polygon(66% 0, 71% 0, 4% 100%, -1% 100%); }
-  .hero .wedge { clip-path: polygon(71% 0, 100% 0, 100% 100%, 4% 100%); }
-  .hero .ground { clip-path: polygon(0 100%, 100% 72%, 100% 100%); }
-    .hero .bombers { width: 48%; top: 11%; right: 2%; }
-  .hero .hand { height: 30%; left: 4%; }
-  .shell { width: calc(100% - 38px); }
-  .nav { height: 78px; }
-  .brand { font-size: 33px; }
-  .navlinks .status { font-size: 10px; padding: 10px 11px; white-space: nowrap; }
-  .hero { height: 100svh; min-height: 680px; border-radius: 8px; }
-  .hero .figure { height: 24%; right: 10%; bottom: 20%; }
-}
+@font-face{font-family:Germanika;src:url(/_/fonts/Germanika.ttf)}
+@font-face{font-family:Oswald;src:url(/_/fonts/Oswald-400.ttf);font-weight:400}
+@font-face{font-family:Oswald;src:url(/_/fonts/Oswald-500.ttf);font-weight:500}
+@font-face{font-family:Oswald;src:url(/_/fonts/Oswald-600.ttf);font-weight:600}
+@font-face{font-family:Oswald;src:url(/_/fonts/Oswald-700.ttf);font-weight:700}
+:root{--ink:#080c0b;--red:#b82a26;--cream:#e6d0a9;--tan:#e7cea5}
+html,body{overflow-x:hidden}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--ink)}body{margin:0;background:var(--ink);color:var(--cream);font-family:Oswald,Arial,sans-serif;font-weight:400}a{color:inherit;text-decoration:none}button{font:inherit}.shell{width:min(1760px,calc(100% - 96px));margin:auto}.top{position:relative;min-height:1080px;overflow:hidden;isolation:isolate;border-bottom:18px solid var(--cream)}.top:before{content:"";position:absolute;inset:-25% -18% 3% 40%;background:linear-gradient(145deg,#d03530 0%,var(--red) 48%,#7c1616 100%);clip-path:polygon(36% 0,100% 0,100% 74%,0 100%);z-index:-3}.top:after{content:"";position:absolute;right:-12vw;bottom:-21vw;width:67vw;height:46vw;background:var(--ink);transform:rotate(-14deg);z-index:-2}.nav{height:104px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid rgba(230,208,169,.65);position:relative;z-index:5}.brand{font-family:Doctrine,Oswald,sans-serif;font-size:39px;line-height:1;letter-spacing:.06em}.brand small{font-family:Oswald,sans-serif;font-size:10px;letter-spacing:.25em;display:block;margin-top:7px}.navlinks{display:flex;gap:40px;align-items:center;text-transform:uppercase;font-size:14px;font-weight:600;letter-spacing:.18em}.navlinks .status{padding:13px 19px;border:1px solid var(--cream)}.dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-right:10px;box-shadow:0 0 0 5px rgba(184,42,38,.2)}.hero{display:grid;grid-template-columns:.94fr 1.06fr;gap:68px;align-items:center;min-height:940px;padding:62px 0 105px;position:relative}.copy{position:relative;z-index:3;align-self:center}.copy h1{font-size:clamp(74px,6.5vw,132px);line-height:.83;margin:0 0 34px;letter-spacing:-.045em;text-transform:uppercase;font-weight:700;max-width:800px}.copy h1 span{display:block;color:var(--ink);background:var(--cream);width:max-content;max-width:100%;padding:.04em .12em .08em;transform:skewY(-2deg);margin:.06em 0}.lede{font-family:Arial,sans-serif;font-size:19px;line-height:1.6;max-width:610px;margin:0 0 36px;color:#f0dfc0}.actions{display:flex;gap:16px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;text-transform:uppercase;letter-spacing:.16em;font-weight:700;font-size:15px;height:58px;padding:0 27px;border:2px solid var(--cream)}.btn.primary{background:var(--cream);color:var(--ink)}.btn.primary:after{content:"↗";font-size:23px;margin-left:22px}.btn.ghost{background:var(--ink)}.art{position:relative;height:745px;z-index:2}.art .planes{position:absolute;width:44%;top:-65px;right:-30px;filter:brightness(0);opacity:.78;z-index:0}.logo-figure{position:absolute;left:-135px;bottom:-145px;width:270px;z-index:5;filter:saturate(.9)}.canvas{position:absolute;inset:30px 0 34px 42px;background:rgba(8,12,11,.96);border:3px solid var(--cream);box-shadow:20px 22px 0 var(--ink),20px 22px 0 3px var(--cream);transform:rotate(-1.2deg);overflow:hidden}.canvas-head{height:70px;border-bottom:2px solid var(--cream);display:flex;align-items:center;justify-content:space-between;padding:0 24px;text-transform:uppercase;font-weight:700;letter-spacing:.18em;font-size:13px}.canvas-head .live{color:var(--cream)}.canvas-head .live:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#db3b35;margin-right:10px;box-shadow:0 0 0 5px rgba(184,42,38,.22)}.canvas-body{position:relative;height:calc(100% - 70px);padding:33px}.node{position:absolute;border:2px solid var(--cream);background:var(--ink);color:var(--cream);padding:12px 15px;min-width:140px;z-index:3}.node.red{background:var(--red);border-color:var(--red)}.node .rank{font-size:10px;letter-spacing:.23em;text-transform:uppercase;color:#d9c199}.node strong{display:block;font-size:21px;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}.human{left:41%;top:20px}.general{left:17%;top:139px}.general.two{left:62%;top:139px}.major{left:4%;top:280px}.major.two{left:35%;top:280px}.major.three{left:67%;top:280px}.scout{left:19%;top:435px}.scout.two{left:56%;top:435px}.wire{position:absolute;height:2px;background:var(--cream);transform-origin:0 50%;opacity:.75;z-index:1}.wire:after{content:"";position:absolute;right:-2px;top:-4px;border-left:8px solid var(--cream);border-top:5px solid transparent;border-bottom:5px solid transparent}.w1{width:190px;left:48%;top:98px;transform:rotate(145deg)}.w2{width:175px;left:50%;top:98px;transform:rotate(36deg)}.w3{width:160px;left:26%;top:221px;transform:rotate(145deg)}.w4{width:155px;left:28%;top:222px;transform:rotate(40deg)}.w5{width:164px;left:72%;top:221px;transform:rotate(142deg)}.w6{width:130px;left:15%;top:363px;transform:rotate(54deg)}.w7{width:132px;left:47%;top:363px;transform:rotate(46deg)}.packet{position:absolute;color:var(--ink);background:var(--cream);font-size:10px;font-weight:700;letter-spacing:.16em;padding:7px 9px;z-index:5}.p1{left:37%;top:120px;transform:rotate(-19deg)}.p2{left:52%;top:246px;transform:rotate(12deg)}.p3{left:26%;top:407px;transform:rotate(11deg)}
+@media(max-width:900px){.shell{width:calc(100% - 38px)}.top{min-height:1290px;border-bottom-width:10px}.top:before{inset:-8% -65% 42% 18%;clip-path:polygon(47% 0,100% 0,100% 78%,0 100%)}.top:after{display:none}.nav{height:78px}.brand{font-size:30px}.navlinks a:not(.status){display:none}.navlinks .status{font-size:0;padding:11px}.navlinks .status .dot{margin:0}.hero{display:block;min-height:1210px;padding:50px 0}.copy h1{font-size:57px;line-height:.86}.lede{font-size:16px;line-height:1.5}.actions{align-items:stretch}.btn{padding:0 15px;font-size:12px;height:52px}.btn.primary:after{margin-left:12px}.art{height:610px;margin-top:42px}.canvas{inset:10px 4px 22px 3px;box-shadow:9px 10px 0 var(--ink),9px 10px 0 2px var(--cream)}.canvas-head{height:52px;padding:0 13px;font-size:10px}.canvas-body{padding:15px}.node{min-width:92px;padding:8px 9px}.node .rank{font-size:7px}.node strong{font-size:13px}.human{left:36%;top:15px}.general{left:5%;top:120px}.general.two{left:61%;top:120px}.major{left:0;top:245px}.major.two{left:34%;top:245px}.major.three{left:67%;top:245px}.scout{left:10%;top:380px}.scout.two{left:58%;top:380px}.wire{opacity:.5}.w1{width:118px;left:46%;top:79px}.w2{width:105px;left:49%;top:79px}.w3{width:96px;left:18%;top:180px}.w4{width:100px;left:20%;top:180px}.w5{width:102px;left:73%;top:180px}.w6{width:105px;left:14%;top:302px}.w7{width:110px;left:47%;top:302px}.packet{font-size:7px;padding:4px 5px}.p1{left:30%;top:92px}.p2{left:47%;top:208px}.p3{left:20%;top:335px}.art .planes{top:-34px;right:0;width:55%}.logo-figure{left:-38px;bottom:-92px;width:145px}}
+:root{--wordmark:Laandbrau;--subtitle:Oswald}
+.brand{font-family:var(--wordmark),Oswald,sans-serif;font-size:49px;letter-spacing:0;text-transform:none}
+.lede{font-family:var(--subtitle),Oswald,sans-serif;font-weight:400;color:rgba(230,208,169,.9)}
+.copy{transform:translateY(-92px)}
+@media(max-width:900px){.copy{transform:none}.brand{font-size:33px}.navlinks .status{font-size:10px;padding:10px 11px;white-space:nowrap}.navlinks .status .dot{display:none}}
