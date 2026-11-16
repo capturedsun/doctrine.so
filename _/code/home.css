@@ -1,0 +1,45 @@
+@font-face { font-family: Laandbrau; src: url(/_/fonts/Laandbrau.ttf); }
+/* Germanika slot: drop the file at /_/fonts/Germanika.ttf. */
+@font-face { font-family: Germanika; src: url(/_/fonts/Germanika.ttf); }
+:root { --black:#080C0B; --red:#B82A26; --cream:#E6D0A9; --tan:#E7CEA5;  --wordmark: Laandbrau; --wordmark-track: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--black); color: var(--cream); font: 18px/1.5 Oswald, sans-serif; }
+h2 { font: 400 clamp(48px, 7vw, 120px)/.9 Anton, sans-serif; text-transform: uppercase; letter-spacing: .01em; }
+.kicker { font: 600 14px/1 'IBM Plex Mono', monospace; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 18px; }
+
+/* ---------- hero: the poster ---------- */
+.hero { position: relative; height: 100vh; min-height: 720px; overflow: hidden; background: var(--black); }
+.hero .stripe { position: absolute; inset: 0; background: var(--cream); clip-path: polygon(40% 0, 43% 0, 21% 100%, 18% 100%); }
+.hero .wedge { position: absolute; inset: 0; background: var(--red); clip-path: polygon(43% 0, 100% 0, 100% 100%, 21% 100%); }
+.hero .ground { position: absolute; inset: 0; background: var(--black); clip-path: polygon(0 100%, 100% 64%, 100% 100%); }
+.hero .bombers { position: absolute; right: 6%; top: 11%; width: 24%; }
+.hero .hand { position: absolute; left: 13%; bottom: -1%; height: 46%; }
+/* top bar, from davinci/c.html */
+.shell { width: min(1760px, calc(100% - 96px)); margin: auto; }
+.nav { height: 104px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(230,208,169,.65); position: relative; z-index: 5; }
+.nav a { color: var(--cream); text-decoration: none; }
+.brand { font-family: var(--wordmark), Oswald, sans-serif; font-size: 49px; line-height: 1; letter-spacing: 0; }
+.brand small { font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: .25em; display: block; margin-top: 7px; }
+.navlinks { display: flex; gap: 40px; align-items: center; text-transform: uppercase; font: 600 14px/1.5 Oswald, sans-serif; letter-spacing: .18em; }
+.navlinks .status { padding: 13px 19px; border: 1px solid var(--cream); }
+
+.hero .figure { position: absolute; right: 22%; bottom: 25.5%; height: 400px; z-index: 3; }
+
+/* ---------- the frame: a rounded cream border round the whole site ---------- */
+.hero { margin: 0; height: 100vh; min-height: 720px; border: 6px solid var(--cream); border-radius: 10px; }
+
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .hero { height: 100svh; min-height: 680px; }
+  .hero .stripe { clip-path: polygon(66% 0, 71% 0, 4% 100%, -1% 100%); }
+  .hero .wedge { clip-path: polygon(71% 0, 100% 0, 100% 100%, 4% 100%); }
+  .hero .ground { clip-path: polygon(0 100%, 100% 72%, 100% 100%); }
+    .hero .bombers { width: 48%; top: 11%; right: 2%; }
+  .hero .hand { height: 30%; left: 4%; }
+  .shell { width: calc(100% - 38px); }
+  .nav { height: 78px; }
+  .brand { font-size: 33px; }
+  .navlinks .status { font-size: 10px; padding: 10px 11px; white-space: nowrap; }
+  .hero { height: 100svh; min-height: 680px; border-radius: 8px; }
+  .hero .figure { height: 24%; right: 10%; bottom: 20%; }
+}

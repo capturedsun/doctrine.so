@@ -1,0 +1,6 @@
+# the app's release files: over GitHub's 100 MB file limit; they go up as release assets
+*.dmg
+*.zip
+app.json
+node_modules
+.DS_Store
