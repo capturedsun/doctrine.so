@@ -5,6 +5,10 @@
 // is the hero's Download box; /download, the old page, sends you home.
 
 var siteUrl = String(config.siteUrl || 'https://doctrine.so').replace(/\/+$/, '')
+// the app's version, in site.json alone (as ~/doctrine/package.json has it): the subtitle under the wordmark,
+// and the dmg's name in the latest release, which the Download box links to; a release bumps it there once
+var version = String(config.version || '')
+var download = 'https://github.com/capturedsun/doctrine.so/releases/latest/download/Doctrine-' + version + '-universal.dmg'
 var HOME = { title: 'Doctrine — The Hierarchical Harness', description: 'Build your AI army. Recruit agents with a name, rank, and team, and watch them work through the chain of command.' }
 var NOT_FOUND = { title: 'Not found — Doctrine', description: 'No such page.' }
 
@@ -25,12 +29,13 @@ function headFor(path, p) {
 
 // the hero with its copy for a page not found, and no canvas
 function notFoundBody(home) {
-    return home.replace(/<div class="copy">[\s\S]*<\/header>/, '<div class="copy">\n      <h1>Not <span>found</span>.</h1>\n      <p class="lede">There is no such page.</p>\n      <div class="actions"><a class="btn primary" href="/">Return home</a></div>\n    </div>\n  </div>\n</header>')
+    return home.replace(/<div class="copy">[\s\S]*<\/header>/, '<div class="copy">\n      <h1>Not <span>found</span>.</h1>\n      <p class="lede">There is no such page. <a href="/" style="text-decoration:underline">Return home</a>.</p>\n    </div>\n  </div>\n</header>')
 }
 
 function page(req, res) {
     var shell = fileRead((req.mobile ? 'mobile' : 'desktop') + '/shell.html'), home = fileRead('_/text/home.html')
     if (shell == null || home == null) return res.text(500, 'the site has no shell or no page')
+    home = home.replace(/\{\{version\}\}/g, escapeHtml(version)).replace(/\{\{download\}\}/g, escapeHtml(download))
     var found = req.path === '/'
     res.html(found ? 200 : 404, shell.replace('<!--seo-->', headFor(found ? '/' : req.path, found ? HOME : NOT_FOUND)).replace('<!--page-->', (found ? home : notFoundBody(home)).replace(/\n$/, '')))
 }
