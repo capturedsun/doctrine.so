@@ -15,3 +15,24 @@ html,body{overflow-x:hidden}
 .lede{font-family:var(--subtitle),Oswald,sans-serif;font-weight:400;color:rgba(230,208,169,.9)}
 .copy{transform:translateY(-92px)}
 @media(max-width:900px){.copy{transform:none}.brand{font-size:33px}.navlinks .status{font-size:10px;padding:10px 11px;white-space:nowrap}.navlinks .status .dot{display:none}}
+/* one viewport, no scroll: the frame is the window's height and clips the hero below it (the hero keeps its own
+   height and layout, so all above the cut is as it was) */
+.frame{position:relative;height:100vh;height:100dvh;overflow:hidden}
+/* the two views of the one page: home (/) and the download panel (/download), switched by views.js */
+.frame[data-view=home] .panel,.frame[data-view=download] .hero{display:none}
+.panel{position:relative;z-index:3;padding-top:56px}
+.back{display:inline-block;text-transform:uppercase;letter-spacing:.18em;font-size:14px;font-weight:600;border-bottom:2px solid var(--cream);padding-bottom:4px}
+.panel h1{font-size:clamp(74px,6.5vw,132px);line-height:.83;margin:44px 0 52px;letter-spacing:-.045em;text-transform:uppercase;font-weight:700}
+.panel h1 span{display:inline-block;color:var(--ink);background:var(--cream);padding:.04em .12em .08em;transform:skewY(-2deg)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,440px));gap:48px}
+.card{background:rgba(8,12,11,.96);border:3px solid var(--cream);box-shadow:14px 16px 0 var(--ink),14px 16px 0 3px var(--cream)}
+.card-head{height:62px;border-bottom:2px solid var(--cream);display:flex;align-items:center;justify-content:space-between;padding:0 22px;text-transform:uppercase;font-weight:700;letter-spacing:.18em;font-size:15px}
+.card-head .tag{font-size:11px;letter-spacing:.2em;padding:6px 9px;background:var(--cream);color:var(--ink)}
+.card.off{opacity:.62}
+.card.off .tag{background:none;color:var(--cream);border:1px solid var(--cream)}
+.card-body{padding:28px 22px 30px}
+.get{display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 22px;background:var(--cream);color:var(--ink);text-transform:uppercase;letter-spacing:.14em;font-weight:700;font-size:15px}
+.get:after{content:"↓";font-size:22px;margin-left:16px}
+.facts{margin:18px 0 4px;text-transform:uppercase;letter-spacing:.16em;font-size:13px;font-weight:600}
+.note{margin:0;color:rgba(230,208,169,.75);font-size:16px}
+@media(max-width:900px){.panel{padding-top:28px}.panel h1{font-size:57px;margin:26px 0 30px}.cards{grid-template-columns:1fr;gap:28px}.card{box-shadow:8px 9px 0 var(--ink),8px 9px 0 2px var(--cream)}.card-head{height:48px;font-size:12px;padding:0 14px}.card-body{padding:18px 14px 20px}.get{height:52px;font-size:12px;padding:0 14px}.facts{font-size:11px}.note{font-size:14px}}
