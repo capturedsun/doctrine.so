@@ -50,16 +50,21 @@ Object.keys(PAGES).forEach(function (path) { routes['GET ' + path] = page })
 routes['GET /*'] = page // (every other path: the shell with the not-found page)
 // the macOS app's updater (desktop/updater.js: Electron's autoUpdater, Squirrel.Mac, serverType 'json'): the static
 // feed Squirrel reads. It compares currentRelease with the running app's version and, when it is higher, downloads the
-// entry's updateTo.url, the signed universal .zip of that version's release (by its tag, never 'latest'). site.json
-// holds what release.mjs's site step wrote: version, zipSize, zipSha256 (a download that differs is refused), pubDate.
-routes['GET /update/mac'] = function (req, res) {
-    if (!/^\d+\.\d+\.\d+$/.test(version)) return res.send(503, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-cache' }, 'no release yet\n')
-    var zip = 'Doctrine-' + version + '-universal.zip'
-    var to = { version: version, name: version, notes: '', url: 'https://github.com/capturedsun/doctrine.so/releases/download/v' + version + '/' + zip }
+// entry's updateTo.url, the signed universal .zip of that version's release (by its tag, never 'latest'), and refuses a
+// download whose size or sha256 differ. site.json holds what release.mjs's site step wrote: version, zipName (the
+// url's file, the universal .zip of that version), zipSize, zipSha256, pubDate. Any of the first four missing or
+// malformed: 503, no update offered (an update without its pin is never offered).
+function feed() {
+    var zip = String(config.zipName || ''), bytes = config.zipSize, sha = String(config.zipSha256 || '')
+    if (!/^\d+\.\d+\.\d+$/.test(version) || zip !== 'Doctrine-' + version + '-universal.zip' || !(typeof bytes === 'number' && bytes > 0 && Math.floor(bytes) === bytes) || !/^[0-9a-f]{64}$/.test(sha)) return null
+    var to = { version: version, name: version, notes: '', url: 'https://github.com/capturedsun/doctrine.so/releases/download/v' + version + '/' + zip, size: bytes, sha256: sha }
     if (config.pubDate) to.pub_date = String(config.pubDate)
-    if (Number(config.zipSize) > 0) to.size = Number(config.zipSize)
-    if (/^[0-9a-f]{64}$/.test(String(config.zipSha256 || ''))) to.sha256 = String(config.zipSha256)
-    res.send(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }, JSON.stringify({ currentRelease: version, releases: [{ version: version, updateTo: to }] }) + '\n')
+    return { currentRelease: version, releases: [{ version: version, updateTo: to }] }
+}
+routes['GET /update/mac'] = function (req, res) {
+    var f = feed()
+    if (!f) return res.send(503, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-cache' }, 'no release with its size and sha256 yet\n')
+    res.send(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }, JSON.stringify(f) + '\n')
 }
 routes['GET /robots.txt'] = function (req, res) { res.text(200, 'User-agent: *\nAllow: /\n\nSitemap: ' + siteUrl + '/sitemap.xml\n') }
 routes['GET /sitemap.xml'] = function (req, res) {
