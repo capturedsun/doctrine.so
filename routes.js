@@ -48,6 +48,19 @@ function page(req, res) {
 
 Object.keys(PAGES).forEach(function (path) { routes['GET ' + path] = page })
 routes['GET /*'] = page // (every other path: the shell with the not-found page)
+// the macOS app's updater (desktop/updater.js: Electron's autoUpdater, Squirrel.Mac, serverType 'json'): the static
+// feed Squirrel reads. It compares currentRelease with the running app's version and, when it is higher, downloads the
+// entry's updateTo.url, the signed universal .zip of that version's release (by its tag, never 'latest'). site.json
+// holds what release.mjs's site step wrote: version, zipSize, zipSha256 (a download that differs is refused), pubDate.
+routes['GET /update/mac'] = function (req, res) {
+    if (!/^\d+\.\d+\.\d+$/.test(version)) return res.send(503, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-cache' }, 'no release yet\n')
+    var zip = 'Doctrine-' + version + '-universal.zip'
+    var to = { version: version, name: version, notes: '', url: 'https://github.com/capturedsun/doctrine.so/releases/download/v' + version + '/' + zip }
+    if (config.pubDate) to.pub_date = String(config.pubDate)
+    if (Number(config.zipSize) > 0) to.size = Number(config.zipSize)
+    if (/^[0-9a-f]{64}$/.test(String(config.zipSha256 || ''))) to.sha256 = String(config.zipSha256)
+    res.send(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }, JSON.stringify({ currentRelease: version, releases: [{ version: version, updateTo: to }] }) + '\n')
+}
 routes['GET /robots.txt'] = function (req, res) { res.text(200, 'User-agent: *\nAllow: /\n\nSitemap: ' + siteUrl + '/sitemap.xml\n') }
 routes['GET /sitemap.xml'] = function (req, res) {
     var urls = Object.keys(PAGES).map(function (path) { return '  <url><loc>' + siteUrl + path + '</loc></url>' }).join('\n')
