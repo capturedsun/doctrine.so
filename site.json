@@ -1,9 +1,9 @@
 {
   "siteUrl": "https://doctrine.so",
-  "version": "0.1.4",
-  "dmgSize": 236892986,
-  "zipSize": 242425066,
-  "zipSha256": "aad8431ea8cffc507973f8e7c043b2e071d8ac506dfb055a08f8319a9d8ac08d",
-  "pubDate": "2026-11-19T23:18:20.138Z",
-  "zipName": "Doctrine-0.1.4-universal.zip"
+  "version": "0.1.5",
+  "dmgSize": 236983126,
+  "zipSize": 242559889,
+  "zipSha256": "8757bddd553063b4473e834b0e192fc3d6dea94df1823be44931499a69f063b0",
+  "pubDate": "2026-11-23T07:29:48.584Z",
+  "zipName": "Doctrine-0.1.5-universal.zip"
 }
