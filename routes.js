@@ -10,7 +10,7 @@ var siteUrl = String(config.siteUrl || 'https://doctrine.so').replace(/\/+$/, ''
 // the wordmark and the dmg's name in the latest release; and the dmg's size in bytes, as the release's API answer
 // gave it (none: no size shown). A release sets both there once.
 var version = String(config.version || '')
-var download = 'https://github.com/capturedsun/doctrine.so/releases/latest/download/Doctrine-' + version + '-universal.dmg'
+var download = 'https://github.com/capturedsun/doctrine.so/releases/download/v' + version + '/Doctrine-' + version + '-universal.dmg' // (by the release's own tag, as the feed's url: a newer release never breaks it)
 var size = Number(config.dmgSize) > 0 ? ' · ' + Math.round(Number(config.dmgSize) / 1e6) + ' MB' : ''
 var PAGES = {
     '/': { view: 'home', title: 'Doctrine — The Hierarchical Harness', description: 'Build your AI army. Recruit agents with a name, rank, and team, and watch them work through the chain of command.' },
